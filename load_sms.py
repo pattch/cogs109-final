@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import sparse
 
 def load(fname):
     words = set()
@@ -25,13 +26,14 @@ def load_bag_of_words(fname):
         word = words[i]
         wd[word] = i
 
-    x_ = []
-    for i in range(len(x)):
+    x_ = sparse.lil_matrix((x.shape[0],num_words),dtype=np.int8)
+    print(x.shape,y.shape,x_.shape,num_words)
+    for i in range(x.shape[0]):
         sms = x[i]
-        l = [0] * len(words)
+        row_counts = {}
         for word in sms.split():
-            l[wd[word]] += 1
-        x_.append(l)
+            idx = wd[word]
+            x_[i,idx] += 1
+    # x_ = sparse.csr_matrix(np.array(x_))
 
-    x_ = np.array(x_)
     return (x_,y,words)
