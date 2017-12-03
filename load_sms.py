@@ -27,7 +27,6 @@ def load_bag_of_words(fname):
         wd[word] = i
 
     x_ = sparse.lil_matrix((x.shape[0],num_words),dtype=np.int8)
-    print(x.shape,y.shape,x_.shape,num_words)
     for i in range(x.shape[0]):
         sms = x[i]
         row_counts = {}
