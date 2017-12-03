@@ -1,4 +1,3 @@
-import numpy as np
 from load_sms import load_bag_of_words as load
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier as RFC
