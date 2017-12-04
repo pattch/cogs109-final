@@ -1,18 +1,18 @@
+from load_blog import load_matrix as load
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation
-from keras.optimizers import SGD
-from load_sms import load_bag_of_words as load
+from keras.optimizers import SGD,adam
 from sklearn.model_selection import train_test_split
-import config
 
-x_,y_,words = load(config.sms_file)
-x,xt,y,yt = train_test_split(x_.toarray(),y_,test_size=0.8,random_state=0)
-num_words = len(words)
+x_,y_ = load('microblogPCU/user_postcleaned')
 
-print(x.shape,y.shape,num_words)
+print(x_.shape,y_.shape)
 
-epochs = 10
-batch_size = 1
+x,xt,y,yt = train_test_split(x_,y_,test_size=0.8,random_state=0)
+num_words = x_.shape[1]
+
+epochs = 20
+batch_size = 16
 
 model = Sequential()
 model.add(Dense(32,input_shape=(num_words,),kernel_initializer='he_uniform',activation='tanh'))
